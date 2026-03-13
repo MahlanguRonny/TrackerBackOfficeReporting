@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/VSWorkspaceState.json
+*.vsidx
+*.suo
+/TrackerBackOfficTrader/.vs/TrackerBackOfficTrader/v17/DocumentLayout.backup.json
+/TrackerBackOfficTrader/.vs/TrackerBackOfficTrader/v17/DocumentLayout.json
+/TrackerBackOfficTrader/Tracker.Backend.Api/bin/Debug/net8.0
+/TrackerBackOfficTrader/Tracker.Backend.Api/obj
+/TrackerBackOfficTrader/.vs/TrackerBackOfficTrader/config/applicationhost.config
+/TrackerBackOfficTrader/Tracker.Backend.Domain/bin/Debug/net8.0
+/TrackerBackOfficTrader/Tracker.Backend.Domain/obj
+/TrackerBackOfficTrader/Tracker.Backend.Infrustructure/obj
+/TrackerBackOfficTrader/Tracker.Backend.LegacyService/bin
+/TrackerBackOfficTrader/Tracker.Backend.LegacyService/obj/Debug
+/TrackerBackOfficTrader/Tracker.Backend.Infrustructure/bin/Debug/net8.0
+*.wsuo
+/.vs/TrackerBackOfficeReporting/v17/DocumentLayout.json
