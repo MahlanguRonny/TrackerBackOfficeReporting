@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 using Trader.Backend.Api.Endpoints;
 using Trader.Backend.Api.Extentions;
 
@@ -6,7 +8,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.AddApplicationServices();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Trader Minimal API",
+        Version = "v1",
+        Description = "Trader backend service for trading reports"
+    });
+
+
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+});
 
 var app = builder.Build();
 
