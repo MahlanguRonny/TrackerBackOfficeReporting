@@ -16,13 +16,6 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1",
         Description = "Trader backend service for trading reports"
     });
-
-
-    // Set the comments path for the Swagger JSON and UI.
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
-
 });
 
 var app = builder.Build();

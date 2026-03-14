@@ -15,13 +15,16 @@ namespace Tracker.Backend.Domain.Models
         public decimal Price { get; set; }
         public DateTime TradeTime { get; set; }
         public string Currency { get; set; } = default!;
+        //The below object is thee external account
+        //TODO rename if time permits
         public TradeAccount TradeAccount { get; set; }
 
-        public static TradeTransaction Create(int externalAccountId, string symbol, string side, int quantity, decimal price, DateTime tradeTime, string currency, int tradeRateId)
+        public static TradeTransaction Create(int externalAccountId, string account, string symbol, string side, int quantity, decimal price, DateTime tradeTime, string currency, int tradeRateId)
         {
             var trade = new TradeTransaction
             {
                 TradeAccountId = externalAccountId,
+                Account = account,
                 Symbol = symbol,
                 Side = side,
                 Quantity = quantity,

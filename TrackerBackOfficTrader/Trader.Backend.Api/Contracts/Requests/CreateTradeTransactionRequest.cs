@@ -3,6 +3,7 @@
     public record CreateTradeTransactionRequest
     {
         public int ExternalAccountId { get; set; } = default!;
+        public string Account { get; set; } = default!;
         public int TradeRateId { get; set; }
         public string Symbol { get; set; } = default!;
         public string Side { get; set; } = default!;

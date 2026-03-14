@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using System.ServiceModel;
 using Trader.Backend.Api.AppContext;
 using Trader.Backend.Api.Exceptions;
 using Trader.Backend.Api.Services;
+using WcfServiceReference;
 
 namespace Trader.Backend.Api.Extentions
 {
@@ -26,6 +28,17 @@ namespace Trader.Backend.Api.Extentions
 
             //register self defined services, extentions and custom handlers(such as exception handlers) with the DI container
             builder.Services.AddScoped<IApiTraderService, ApiTraderService>();
+
+            builder.Services.AddTransient<ITraderService>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var wcfServiceAddress = configuration["ExternalServices:WcfTraderServiceAddress"];
+
+                var client = new TraderServiceClient(TraderServiceClient.EndpointConfiguration.BasicHttpBinding_ITraderService, new EndpointAddress(wcfServiceAddress));
+
+                return client;
+            });
+
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
             builder.Services.AddProblemDetails();
