@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
-using Trader.Backend.Api.Contracts.Responses;
 
 namespace Trader.Backend.Api.Exceptions
 {

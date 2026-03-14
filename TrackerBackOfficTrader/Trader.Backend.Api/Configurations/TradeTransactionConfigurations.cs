@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Tracker.Backend.Domain.Models;
 
 namespace Trader.Backend.Api.Configurations
 {

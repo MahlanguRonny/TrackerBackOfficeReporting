@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-
-namespace Tracker.Backend.Domain.Models
+﻿namespace Tracker.Backend.Domain.Models
 {
     public class TradeTransaction
     {   

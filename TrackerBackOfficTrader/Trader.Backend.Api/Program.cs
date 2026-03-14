@@ -1,5 +1,4 @@
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using Trader.Backend.Api.Endpoints;
 using Trader.Backend.Api.Extentions;
 

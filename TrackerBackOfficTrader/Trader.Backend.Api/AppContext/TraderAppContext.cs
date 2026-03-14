@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tracker.Backend.Domain.Models;
 
 namespace Trader.Backend.Api.AppContext
 {

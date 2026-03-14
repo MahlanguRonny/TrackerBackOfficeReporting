@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tracker.Backend.Domain.Models;
 using Trader.Backend.Api.AppContext;
-using Trader.Backend.Api.Contracts.Requests;
-using Trader.Backend.Api.Contracts.Responses;
 using WcfServiceReference;
 
 namespace Trader.Backend.Api.Services

@@ -4,7 +4,6 @@ using System.Reflection;
 using System.ServiceModel;
 using Trader.Backend.Api.AppContext;
 using Trader.Backend.Api.Exceptions;
-using Trader.Backend.Api.Services;
 using WcfServiceReference;
 
 namespace Trader.Backend.Api.Extentions
