@@ -8,9 +8,9 @@
         public decimal RateAmount { get; set; }
         public DateTime AsOfDate { get; set; }
 
-        public static TradeRate Create(int id, string from, string to, decimal rateAmount, DateTime asOfDate)
+        public static TradeRate Create( string from, string to, decimal rateAmount, DateTime asOfDate)
         {
-            var rate = new TradeRate {Id= id, From = from, To = to, RateAmount = rateAmount, AsOfDate = asOfDate };
+            var rate = new TradeRate { From = from, To = to, RateAmount = rateAmount, AsOfDate = asOfDate };
             return rate;
         }
     }

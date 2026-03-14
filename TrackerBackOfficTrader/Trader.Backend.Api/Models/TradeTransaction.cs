@@ -10,6 +10,7 @@ namespace Tracker.Backend.Domain.Models
    
         public int Id { get; set; }
         public int ExternalAccountId { get; set; } = default!;
+        public int TradeRateId {  get; set; } 
         public string Symbol { get; set; } = default!;
         public string Side { get; set; } = default!;
         public int Quantity { get; set; }
@@ -18,18 +19,18 @@ namespace Tracker.Backend.Domain.Models
         public string Currency { get; set; } = default!;
         public TradeAccount TradeAccount { get; set; }
 
-        public static TradeTransaction Create(int id,int externalAccountId, string symbol, string side, int quantity, decimal price, DateTime tradeTime, string currency)
+        public static TradeTransaction Create(int externalAccountId, string symbol, string side, int quantity, decimal price, DateTime tradeTime, string currency, int tradeRateId)
         {
             var trade = new TradeTransaction
             {
-                Id = id,
                 ExternalAccountId = externalAccountId,
                 Symbol = symbol,
                 Side = side,
                 Quantity = quantity,
                 Price = price,
                 TradeTime = tradeTime,
-                Currency = currency
+                Currency = currency,
+                TradeRateId = tradeRateId
             };
 
             return trade;
