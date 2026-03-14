@@ -5,7 +5,7 @@ namespace Trader.Backend.Api.Services
 {
     public interface ITraderService
     {
-        Task<TradeTransationResponse> AddTradeTransaction(CreateTradeTransactionRequest createTradeTransaction);
+        Task<TradeCreationResponse> AddTradeTransactionAsync(CreateTradeTransactionRequest createTradeTransaction);
         Task<TradeTransationResponse> TradeTransactionsByDate(GetTradeTransactionRequest tradeTransactionRequest);
     }
 }

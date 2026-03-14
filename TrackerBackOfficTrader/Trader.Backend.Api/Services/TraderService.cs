@@ -15,7 +15,7 @@ namespace Trader.Backend.Api.Services
             _context = context;
             _logger = logger;
         }
-        public async Task<TradeCreationResponse> AddTradeTransaction(CreateTradeTransactionRequest createTradeTransaction)
+        public async Task<TradeCreationResponse> AddTradeTransactionAsync(CreateTradeTransactionRequest createTradeTransaction)
         {
             try
             {
