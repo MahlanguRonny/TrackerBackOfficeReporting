@@ -28,7 +28,7 @@ namespace Trader.Backend.Api.Extentions
             //register self defined services, extentions and custom handlers(such as exception handlers) with the DI container
             builder.Services.AddScoped<IApiTraderService, ApiTraderService>();
 
-            builder.Services.AddTransient<ITraderService>(provider =>
+            builder.Services.AddScoped<ITraderService>(provider =>
             {
                 var configuration = provider.GetRequiredService<IConfiguration>();
                 var wcfServiceAddress = configuration["ExternalServices:WcfTraderServiceAddress"];
