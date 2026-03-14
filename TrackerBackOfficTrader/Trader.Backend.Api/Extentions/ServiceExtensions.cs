@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using Trader.Backend.Api.AppContext;
+using Trader.Backend.Api.Services;
 
 namespace Trader.Backend.Api.Extentions
 {
@@ -21,6 +22,9 @@ namespace Trader.Backend.Api.Extentions
 
             // Adding validators from the current assembly
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //register self defined service with the DI
+            builder.Services.AddScoped<ITraderService, TraderService>();
         }
     }
 }

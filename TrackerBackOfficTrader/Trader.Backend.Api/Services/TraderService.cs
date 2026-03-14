@@ -5,7 +5,7 @@ using Trader.Backend.Api.Contracts.Responses;
 
 namespace Trader.Backend.Api.Services
 {
-    public class TraderService : ITrader
+    public class TraderService : ITraderService
     {
         private readonly TraderAppContext _context;
         private readonly ILogger<TraderService> _logger;
