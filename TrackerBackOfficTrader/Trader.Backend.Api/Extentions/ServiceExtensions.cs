@@ -25,7 +25,7 @@ namespace Trader.Backend.Api.Extentions
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             //register self defined services, extentions and custom handlers(such as exception handlers) with the DI container
-            builder.Services.AddScoped<ITraderService, TraderService>();
+            builder.Services.AddScoped<IApiTraderService, ApiTraderService>();
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
             builder.Services.AddProblemDetails();

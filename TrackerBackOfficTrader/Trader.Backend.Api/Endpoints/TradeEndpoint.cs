@@ -9,13 +9,13 @@ namespace Trader.Backend.Api.Endpoints
     {
         public static IEndpointRouteBuilder MapTradeEndpoint(this IEndpointRouteBuilder app)
         {
-            app.MapPost("/TradeTransactions", async (CreateTradeTransactionRequest tradeTransaction, ITraderService tradeService) =>
+            app.MapPost("/TradeTransactions", async (CreateTradeTransactionRequest tradeTransaction, IApiTraderService tradeService) =>
             {
                 var result = await tradeService.AddTradeTransactionAsync(tradeTransaction);
                 return Results.Created($"TradeTransactions/{result.Id}", result);
             });
 
-            app.MapPost("/TradeTransactionsByDate", async (GetTradeTransactionRequest tradeTransaction, ITraderService tradeService) =>
+            app.MapPost("/TradeTransactionsByDate", async (GetTradeTransactionRequest tradeTransaction, IApiTraderService tradeService) =>
             {
                 var result = await tradeService.TradeTransactionsByDate(tradeTransaction);
                 return Results.Ok(result);
