@@ -1,6 +1,6 @@
 ﻿namespace Trader.Backend.Api.Contracts.Responses
 {
-    public record CreateTradeTransationResponse
+    public record TradeTransationResponse
     {
         public int ExternalAccountId { get; set; }
         public string Account {  get; set; } = default!;
