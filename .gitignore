@@ -34,3 +34,4 @@
 /TrackerBackOfficTrader/Tracker.Backend.Infrustructure/Tracker.Backend.Infrustructure.csproj
 /TrackerBackOfficTrader/Tracker.Backend.Api/appsettings.json
 /TrackerBackOfficTrader/Tracker.Backend.Api/Tracker.Backend.Api.csproj
+/TrackerBackOfficTrader/packages/EntityFramework.6.2.0
