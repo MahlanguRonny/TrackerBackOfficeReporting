@@ -1,0 +1,6 @@
+@Trader.Backend.Api_HostAddress = http://localhost:5286
+
+GET {{Trader.Backend.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

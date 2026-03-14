@@ -12,19 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Tracker.Backend.Api/Tracker.Backend.Api.csproj", "Tracker.Backend.Api/"]
-RUN dotnet restore "./Tracker.Backend.Api/Tracker.Backend.Api.csproj"
+COPY ["Trader.Backend.Api/Trader.Backend.Api.csproj", "Trader.Backend.Api/"]
+RUN dotnet restore "./Trader.Backend.Api/Trader.Backend.Api.csproj"
 COPY . .
-WORKDIR "/src/Tracker.Backend.Api"
-RUN dotnet build "./Tracker.Backend.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Trader.Backend.Api"
+RUN dotnet build "./Trader.Backend.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Tracker.Backend.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Trader.Backend.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Tracker.Backend.Api.dll"]
+ENTRYPOINT ["dotnet", "Trader.Backend.Api.dll"]
