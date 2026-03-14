@@ -1,27 +1,22 @@
 ﻿using System;
+using System.Linq;
+using Tracker.Backend.LegacyService.Data;
 
 namespace Tracker.Backend.LegacyService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : ITraderService
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "TraderService" in code, svc and config file together.
+    // NOTE: In order to launch WCF Test Client for testing this service, please select TraderService.svc or TraderService.svc.cs at the Solution Explorer and start debugging.
+    public class TraderService : ITraderService
     {
-        public string GetData(int value)
+        public TradeRate GetCurrentRateByCurrency(string selectedCurrency)
         {
-            return string.Format("You entered: {0}", value);
-        }
+            TradeRate rate = new TradeRate();
+            using (TradeDbEntities tradeDb = new TradeDbEntities())
+            {
+                rate = tradeDb.TradeRates.FirstOrDefault(x => x.FromCurrency == selectedCurrency);
+            }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            return rate;
         }
     }
 }
