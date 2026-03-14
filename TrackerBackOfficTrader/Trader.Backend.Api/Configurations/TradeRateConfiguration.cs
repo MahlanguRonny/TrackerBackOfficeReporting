@@ -22,6 +22,15 @@ namespace Trader.Backend.Api.Configurations
                 ToCurrency = "USD",
                 RateAmount = 1.09M
             });
+
+            builder.HasData(new TradeRate
+            {
+                Id = 2,
+                AsOfDate = new DateTime(2026, 01, 15),
+                FromCurrency = "USD",
+                ToCurrency = "EUR",
+                RateAmount = 0.917M
+            });
         }
     }
 }
