@@ -3,13 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tracker.Backend.Domain.Models
 {
-    [Index(nameof(ExternalAccountId), IsUnique = true)]
     public class TradeTransaction
-    {
-        [Key]
-   
+    {   
         public int Id { get; set; }
-        public int ExternalAccountId { get; set; } = default!;
+        public int TradeAccountId { get; set; } = default!;
         public int TradeRateId {  get; set; } 
         public string Symbol { get; set; } = default!;
         public string Side { get; set; } = default!;
@@ -23,7 +20,7 @@ namespace Tracker.Backend.Domain.Models
         {
             var trade = new TradeTransaction
             {
-                ExternalAccountId = externalAccountId,
+                TradeAccountId = externalAccountId,
                 Symbol = symbol,
                 Side = side,
                 Quantity = quantity,

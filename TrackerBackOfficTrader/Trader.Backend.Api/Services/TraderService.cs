@@ -36,11 +36,11 @@ namespace Trader.Backend.Api.Services
 
                 _context.Add(trade);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation($"Trade for account {trade.ExternalAccountId} created successfully");
+                _logger.LogInformation($"Trade for account {trade.TradeAccountId} created successfully");
 
                 return new TradeCreationResponse
                 {
-                    ExternalAccountId = trade.ExternalAccountId,
+                    ExternalAccountId = trade.TradeAccountId,
                     Currency = trade.Currency,
                     Id = trade.Id,
                     Price = trade.Price,
