@@ -17,6 +17,7 @@ namespace Trader.Backend.Api.Configurations
             builder.Property(x => x.Currency).IsRequired().HasMaxLength(5);
             builder.Property(x => x.Symbol).IsRequired().HasMaxLength(15);
             builder.Property(x => x.Side).IsRequired().HasMaxLength(50);
+            builder.Property(x=>x.Account).HasMaxLength(50);
 
             builder.HasData(
                 new TradeTransaction
@@ -29,7 +30,8 @@ namespace Trader.Backend.Api.Configurations
                     Side = "Side1",
                     Symbol = "Symbol1",
                     TradeRateId = 1,
-                    TradeTime = DateTime.Now
+                    TradeTime = DateTime.Now,
+                    Account = "ACC-123"
                 },
                  new TradeTransaction
                  {
@@ -41,7 +43,8 @@ namespace Trader.Backend.Api.Configurations
                      Side = "Side2",
                      Symbol = "Symbol2",
                      TradeRateId = 1,
-                     TradeTime = DateTime.Now
+                     TradeTime = DateTime.Now,
+                     Account = "ACC-123"
                  });
         }
     }

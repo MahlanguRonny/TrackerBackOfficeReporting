@@ -10,6 +10,7 @@ namespace Tracker.Backend.Domain.Models
         public int TradeRateId {  get; set; } 
         public string Symbol { get; set; } = default!;
         public string Side { get; set; } = default!;
+        public string Account {  get; set; }    
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public DateTime TradeTime { get; set; }
