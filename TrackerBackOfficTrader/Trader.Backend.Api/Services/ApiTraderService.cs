@@ -118,7 +118,7 @@ namespace Trader.Backend.Api.Services
                             var trade = TradeTransaction.Create(externalAccountDetails.TradeAccountId, transaction.Account, transaction.Symbol,
                                                                     transaction.Side, transaction.Quantity, baseCurrenyAmount,
                                                                      transaction.TradeTime, transaction.Currency,
-                                                                     transaction.TradeRateId, transaction.BatchId
+                                                                     transaction.TradeRateId, batchTrade.Id
                                                                 );
 
                             tradeTransactions.Add(trade);
