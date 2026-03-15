@@ -3,3 +3,5 @@ global using Trader.Backend.Api.Contracts.Responses;
 global using Trader.Backend.Api.Services;
 global using Tracker.Backend.Domain.Models;
 global using Microsoft.EntityFrameworkCore;
+global using Trader.Backend.Api.Models;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Trader.Backend.Api.Configurations
+﻿namespace Trader.Backend.Api.Configurations
 {
     public class TradeTransactionConfigurations : IEntityTypeConfiguration<TradeTransaction>
     {

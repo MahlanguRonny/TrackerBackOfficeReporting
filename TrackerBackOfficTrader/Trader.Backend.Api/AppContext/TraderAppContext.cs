@@ -7,6 +7,7 @@
         public DbSet<TradeAccount> RateAccounts { get; set; }
         public DbSet<TradeRate> TradeRates { get; set; }
         public DbSet<TradeTransaction> TradeTransactions { get; set; }
+        public DbSet<TradeBatch> TradeBatches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
