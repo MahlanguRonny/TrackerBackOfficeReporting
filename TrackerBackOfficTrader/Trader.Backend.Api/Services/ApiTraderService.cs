@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Trader.Backend.Api.AppContext;
+﻿using Trader.Backend.Api.AppContext;
 using WcfServiceReference;
 
 namespace Trader.Backend.Api.Services

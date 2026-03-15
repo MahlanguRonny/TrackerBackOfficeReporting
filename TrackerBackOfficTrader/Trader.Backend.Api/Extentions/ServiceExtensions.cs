@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using System.ServiceModel;
 using Trader.Backend.Api.AppContext;

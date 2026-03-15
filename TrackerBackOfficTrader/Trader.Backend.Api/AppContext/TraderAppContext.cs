@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Trader.Backend.Api.AppContext
+﻿namespace Trader.Backend.Api.AppContext
 {
     public class TraderAppContext(DbContextOptions<TraderAppContext> options): DbContext(options)
     {
