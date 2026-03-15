@@ -17,7 +17,8 @@
         //TODO rename if time permits
         public TradeAccount TradeAccount { get; set; }
 
-        public static TradeTransaction Create(int externalAccountId, string account, string symbol, string side, int quantity, decimal price, DateTime tradeTime, string currency, int tradeRateId)
+        public static TradeTransaction Create(int externalAccountId, string account, string symbol, string side, int quantity, 
+                                                decimal price, DateTime tradeTime, string currency, int tradeRateId, int batchId)
         {
             var trade = new TradeTransaction
             {
@@ -29,7 +30,8 @@
                 Price = price,
                 TradeTime = tradeTime,
                 Currency = currency,
-                TradeRateId = tradeRateId
+                TradeRateId = tradeRateId,
+                BatchId = batchId
             };
 
             return trade;

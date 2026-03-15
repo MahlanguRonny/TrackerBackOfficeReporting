@@ -31,6 +31,15 @@
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .WithDescription("Creates trade transactions in batch");
 
+            app.MapPost("/BatchTradeTransactionsByBatchId", async (int batchId, IApiTraderService tradeService) =>
+            {
+                var result = await tradeService.BatchTradeTransactionsByBatchId(batchId);
+                return Results.Ok(result);
+            }).Produces<TradeCreationResponse>(StatusCodes.Status200OK)
+               .ProducesProblem(StatusCodes.Status400BadRequest)
+               .ProducesProblem(StatusCodes.Status404NotFound)
+               .WithDescription("Retrieves trade transaction by batch id");
+
             return app;
         }
     }

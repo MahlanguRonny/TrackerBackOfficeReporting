@@ -1,5 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
+using Tracker.Backend.Domain.Models;
 using Trader.Backend.Api.AppContext;
 using WcfServiceReference;
 
@@ -32,7 +33,8 @@ namespace Trader.Backend.Api.Services
                     var baseCurrenyAmount = createTradeTransaction.Price * rateData.RateAmount;
                     var trade = TradeTransaction.Create(externalAccountDetails.TradeAccountId, createTradeTransaction.Account, createTradeTransaction.Symbol,
                                                             createTradeTransaction.Side, createTradeTransaction.Quantity, baseCurrenyAmount,
-                                                             createTradeTransaction.TradeTime, createTradeTransaction.Currency, createTradeTransaction.TradeRateId
+                                                             createTradeTransaction.TradeTime, createTradeTransaction.Currency, createTradeTransaction.TradeRateId,
+                                                             createTradeTransaction.BatchId
                                                         );
 
                     _context.Add(trade);
@@ -62,7 +64,6 @@ namespace Trader.Backend.Api.Services
             var startDate = tradeTransactionRequest.FromDate;
             var endDate = tradeTransactionRequest.ToDate;
 
-#pragma warning disable IDE0037 // Use inferred member name
             var result = await _context.TradeTransactions
                 .Where(tt => tt.TradeTime >= startDate && tt.TradeTime <= endDate)
                 .GroupBy(tt => new { tt.Account, tt.Symbol, tt.Currency })
@@ -76,7 +77,7 @@ namespace Trader.Backend.Api.Services
                     Notional_Base = g.Sum(x => x.Quantity) * g.Average(x => x.Price),
                 })
                 .ToListAsync();
-#pragma warning restore IDE0037 // Use inferred member name
+
 
             return result.Select(trade => new TradeTransationResponse
             {
@@ -116,7 +117,8 @@ namespace Trader.Backend.Api.Services
                             var baseCurrenyAmount = transaction.Price * rateData.RateAmount;
                             var trade = TradeTransaction.Create(externalAccountDetails.TradeAccountId, transaction.Account, transaction.Symbol,
                                                                     transaction.Side, transaction.Quantity, baseCurrenyAmount,
-                                                                     transaction.TradeTime, transaction.Currency, transaction.TradeRateId
+                                                                     transaction.TradeTime, transaction.Currency,
+                                                                     transaction.TradeRateId, transaction.BatchId
                                                                 );
 
                             tradeTransactions.Add(trade);
@@ -154,9 +156,35 @@ namespace Trader.Backend.Api.Services
             }
         }
 
-        //public async Task<IEnumerable<TradeTransationResponse>> BatchTradeTransactions(IEnumerable<CreateTradeTransactionRequest> createTradeTransaction)
-        //{
+        public async Task<IEnumerable<TradeTransationResponse>> BatchTradeTransactionsByBatchId(int batchId)
+        {
+            var result = await _context.TradeTransactions
+                            .Where(tt => tt.BatchId == batchId)
+                                .GroupBy(tt => new
+                                {
+                                    tt.Account,
+                                    tt.Symbol,
+                                    tt.Currency
+                                })
+                                .Select(g => new
+                                {
+                                    Account = g.Key.Account,
+                                    Symbol = g.Key.Symbol,
+                                    Currency = g.Key.Currency,
+                                    Total_Quantity = g.Sum(x => x.Quantity),
+                                    Average_Price = g.Average(x => x.Price),
+                                    Notional_Base = g.Sum(x => x.Quantity) * g.Average(x => x.Price)
+                                }).ToListAsync();
 
-        //}
+            return result.Select(trade => new TradeTransationResponse
+            {
+                Account = trade.Account,
+                AvaragePrice = trade.Average_Price,
+                TotalQuantity = trade.Total_Quantity,
+                NotionalBase = (double)trade.Notional_Base,
+                Symbol = trade.Symbol,
+                BaseCurrency = trade.Currency
+            });
+        }
     }
 }
