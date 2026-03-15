@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int ExternalAccountId { get; set; } = default!;
+        public int BatchId { get; set; }
         public int TradeRateId { get; set; }
         public string Symbol { get; set; } = default!;
         public string Side { get; set; } = default!;

@@ -21,7 +21,15 @@
             }).Produces<TradeCreationResponse>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
-                .WithDescription("Retrieves trade transaction between 2 provided dates"); ;
+                .WithDescription("Retrieves trade transaction between 2 provided dates");
+
+            app.MapPost("/BatchTradeTransactions", async (List<CreateTradeTransactionRequest> tradeTransactionBatch, IApiTraderService tradeService) =>
+            {
+                var result = await tradeService.AddBatchTradeTransaction(tradeTransactionBatch);
+                return Results.Ok(result);
+            }).Produces<TradeCreationResponse>(StatusCodes.Status201Created)
+                .ProducesProblem(StatusCodes.Status400BadRequest)
+                .WithDescription("Creates trade transactions in batch");
 
             return app;
         }

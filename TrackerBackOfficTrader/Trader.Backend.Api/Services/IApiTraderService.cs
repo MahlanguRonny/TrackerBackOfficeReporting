@@ -4,5 +4,7 @@
     {
         Task<TradeCreationResponse> AddTradeTransactionAsync(CreateTradeTransactionRequest createTradeTransaction);
         Task<IEnumerable<TradeTransationResponse>> TradeTransactionsByDate(GetTradeTransactionRequest tradeTransactionRequest);
+        Task<IEnumerable<TradeCreationResponse>> AddBatchTradeTransaction(List<CreateTradeTransactionRequest> tradeTransactionBatch);
+        //Task<IEnumerable<TradeTransationResponse>> BatchTradeTransactions(IEnumerable<CreateTradeTransactionRequest> createTradeTransaction);
     }
 }

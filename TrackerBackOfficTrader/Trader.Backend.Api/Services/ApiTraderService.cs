@@ -1,4 +1,6 @@
-﻿using Trader.Backend.Api.AppContext;
+﻿using System.Data.Common;
+using System.Diagnostics;
+using Trader.Backend.Api.AppContext;
 using WcfServiceReference;
 
 namespace Trader.Backend.Api.Services
@@ -86,5 +88,75 @@ namespace Trader.Backend.Api.Services
                 BaseCurrency = trade.Currency
             });
         }
+
+        public async Task<IEnumerable<TradeCreationResponse>> AddBatchTradeTransaction(List<CreateTradeTransactionRequest> tradeTransactionBatch)
+        {
+            TradeCreationResponse tradeCreationResponse = new TradeCreationResponse();
+            List<TradeTransaction> tradeTransactions = new List<TradeTransaction>();
+
+            using var dbTransaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                //No parameters passed, id will be auto generated and date will be the date of trade
+                //firstly create the batch so we can have the batch id to link all trade transaction to
+
+                var batchTrade = TradeBatch.Create();
+                _context.Add(batchTrade);
+                await _context.SaveChangesAsync();
+
+                //get the rate details from the wcf and only there's data return we can continue with the processing
+                foreach (var transaction in tradeTransactionBatch.ToList())
+                {
+                    var rateData = await _traderService.GetCurrentRateByCurrencyAsync(transaction.Currency);
+                    if (rateData is not null && batchTrade.Id != 0)
+                    {
+                        var externalAccountDetails = await _context.RateAccounts.FirstAsync(x => x.TradeAccountId == transaction.ExternalAccountId);
+                        if (externalAccountDetails is not null)
+                        {
+                            var baseCurrenyAmount = transaction.Price * rateData.RateAmount;
+                            var trade = TradeTransaction.Create(externalAccountDetails.TradeAccountId, transaction.Account, transaction.Symbol,
+                                                                    transaction.Side, transaction.Quantity, baseCurrenyAmount,
+                                                                     transaction.TradeTime, transaction.Currency, transaction.TradeRateId
+                                                                );
+
+                            tradeTransactions.Add(trade);
+                        }
+                    }
+                }
+
+                await _context.AddRangeAsync(tradeTransactions);
+                await _context.SaveChangesAsync();
+
+                await dbTransaction.CommitAsync();
+
+                var result = tradeTransactions.Select(trade => new TradeCreationResponse
+                {
+                    ExternalAccountId = trade.TradeAccountId,
+                    Currency = trade.Currency,
+                    Id = trade.Id,
+                    Price = trade.Price,
+                    Quantity = trade.Quantity,
+                    Side = trade.Side,
+                    Symbol = trade.Symbol,
+                    TradeTime = trade.TradeTime,
+                    TradeRateId = trade.TradeRateId
+                });
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                await dbTransaction.CommitAsync();
+                _logger.LogInformation($"Trade error occured while batch trading: ", ex.Message);
+
+                throw;
+            }
+        }
+
+        //public async Task<IEnumerable<TradeTransationResponse>> BatchTradeTransactions(IEnumerable<CreateTradeTransactionRequest> createTradeTransaction)
+        //{
+
+        //}
     }
 }
